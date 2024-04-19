@@ -1,6 +1,11 @@
+# Need for a State Store
+
+The `nwq-group-builder` application needs to designate a single claim as the primary within a unique group of claims. In our Kafka Streams application, claim records are processed individually and once published to the output topic, their information is not retained.
+&nbsp;&nbsp;&nbsp;&nbsp; To enable effective comparison of multiple claims within the same group, a repository is required where these claims can be stored and accessed. For each veteran identified by a unique `veteranPersonID`, a record is created and maintained in the state store. This record logs all claims associated with the veteran, thereby facilitating subsequent comparison operations.
+
 ## Usage of the State Store
 
-### Data Merging and Initial Storage:
+#### Data Merging and Initial Storage:
 1. **Input Topic Processing:**
    - The input topics for Workload Management Fact, Deferral Aggregate Fact, and Claim Aggregate Fact are processed and merged using the `claimId` as a key.
 2. **Storing GroupingFact:**
