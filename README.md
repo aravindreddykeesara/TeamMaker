@@ -1,8 +1,6 @@
-# Usage of the State Store
+## Usage of the State Store
 
----
-
-#### Data Merging and Initial Storage:
+### Data Merging and Initial Storage:
 1. **Input Topic Processing:**
    - The input topics for Workload Management Fact, Deferral Aggregate Fact, and Claim Aggregate Fact are processed and merged using the `claimId` as a key.
 2. **Storing GroupingFact:**
