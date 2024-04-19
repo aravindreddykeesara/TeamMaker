@@ -28,3 +28,29 @@ To effectively compare multiple claims within the same group, it is necessary to
      - The new record is marked as primary and published.
      - The previously designated primary record is retrieved from the state store, updated to "Secondary", and re-sent to the output topic.
    - This process ensures that the state store always contains the most recent and accurate designations for each `veteranPersonID`.
+
+## Flowchart summarizing the State Store Usage
+
+![State Store Usage Flowchart](https://github.com/aravindreddykeesara/TeamMaker/assets/31300215/4db3010e-bcf3-4896-8ec2-b3d400d5f3aa)
+
+1. **Input Processing:**
+   - Data from the Workload Management, Deferral, and Claim Aggregate Fact topics are merged based on `claimId`.
+
+2. **Storage:**
+   - The resulting `GroupingFact` is stored in the state store using `veteranPersonID` as the key.
+
+3. **Initial Check:**
+   - If it’s the first record, it remains unassigned. If not, proceed to comparison.
+
+4. **Comparison:**
+   - Comparator function runs to select the primary claim based on specified parameters.
+
+5. **Designation Assignment:**
+   - Assign "Primary" to the highest-ranking claim and "Secondary" to others.
+
+6. **Output:**
+   - Send the current `GroupingFact` with updated designations to the output topic.
+
+7. **New Primary Record:**
+   - If a new primary record emerges, update the previous primary to "Secondary" and send both records to the output topic.
+
